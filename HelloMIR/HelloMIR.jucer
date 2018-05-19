@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Whze7T" name="HelloMIR" projectType="guiapp" jucerVersion="5.3.2">
-  <MAINGROUP id="I7gxMJ" name="HelloMIR">
-    <GROUP id="{1CE028C8-C8DB-D497-7B4B-1CFD494368E8}" name="Source">
-      <FILE id="HKuco1" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="LFuGyk" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
-      <FILE id="Tws1Fg" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+<JUCERPROJECT id="cDeHis" name="HelloMIR" projectType="audioplug" jucerVersion="5.3.2"
+              companyName="SomeshGanesh" companyEmail="someshganesh94@gmail.com"
+              pluginFormats="buildVST" pluginManufacturer="SomeshGanesh">
+  <MAINGROUP id="RsALwM" name="HelloMIR">
+    <GROUP id="{5B4D833D-8226-1BE4-D003-784B344D4AB2}" name="Source">
+      <FILE id="IXydAW" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="jAU3Ah" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="MIluih" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="r8xt1c" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
@@ -29,6 +34,7 @@
         <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_audio_utils" path="../../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
@@ -37,6 +43,8 @@
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="0"/>
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
