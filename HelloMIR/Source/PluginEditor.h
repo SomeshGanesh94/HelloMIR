@@ -30,6 +30,9 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     HelloMirAudioProcessor& processor;
+    
+    Label m_lAppName;
+    Label m_lCreatorName;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessorEditor)
 };
