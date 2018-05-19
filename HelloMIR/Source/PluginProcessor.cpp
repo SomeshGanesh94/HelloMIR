@@ -24,6 +24,7 @@ HelloMirAudioProcessor::HelloMirAudioProcessor()
                        )
 #endif
 {
+    m_fCurrentSampleValue = 0;
 }
 
 HelloMirAudioProcessor::~HelloMirAudioProcessor()
@@ -156,6 +157,7 @@ void HelloMirAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
 
         // ..do something to the data...
     }
+    m_fCurrentSampleValue = buffer.getSample(0, buffer.getNumSamples()-1);
 }
 
 //==============================================================================
@@ -188,4 +190,9 @@ void HelloMirAudioProcessor::setStateInformation (const void* data, int sizeInBy
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new HelloMirAudioProcessor();
+}
+
+float HelloMirAudioProcessor::getCurrentSampleValue()
+{
+    return m_fCurrentSampleValue;
 }

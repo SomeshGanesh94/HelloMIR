@@ -16,7 +16,7 @@
 //==============================================================================
 /**
 */
-class HelloMirAudioProcessorEditor  : public AudioProcessorEditor
+class HelloMirAudioProcessorEditor  : public AudioProcessorEditor, public Timer
 {
 public:
     HelloMirAudioProcessorEditor (HelloMirAudioProcessor&);
@@ -25,6 +25,8 @@ public:
     //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
+    
+    void timerCallback() override;
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -33,6 +35,7 @@ private:
     
     Label m_lAppName;
     Label m_lCreatorName;
+    Label m_lCurrentSampleValue;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessorEditor)
 };

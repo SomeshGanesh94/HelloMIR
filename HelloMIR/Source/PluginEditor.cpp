@@ -27,6 +27,13 @@ HelloMirAudioProcessorEditor::HelloMirAudioProcessorEditor (HelloMirAudioProcess
     m_lCreatorName.setText("Somesh Ganesh", dontSendNotification);
     m_lCreatorName.setFont(12);
     addAndMakeVisible(m_lCreatorName);
+    
+    m_lCurrentSampleValue.setText("0", dontSendNotification);
+    m_lCurrentSampleValue.setFont(12);
+    addAndMakeVisible(m_lCurrentSampleValue);
+    
+    // Timer
+    startTimer(100);
 }
 
 HelloMirAudioProcessorEditor::~HelloMirAudioProcessorEditor()
@@ -38,10 +45,6 @@ void HelloMirAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
-    g.setColour (Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
 void HelloMirAudioProcessorEditor::resized()
@@ -52,4 +55,11 @@ void HelloMirAudioProcessorEditor::resized()
     // Labels
     m_lAppName.setBounds(350, 30, 100, 50);
     m_lCreatorName.setBounds(350, 80, 100, 30);
+    m_lCurrentSampleValue.setBounds(350, 150, 100, 30);
+}
+
+void HelloMirAudioProcessorEditor::timerCallback()
+{
+    // change value
+    m_lCurrentSampleValue.setText(String(processor.getCurrentSampleValue()), dontSendNotification);
 }
