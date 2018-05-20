@@ -22,6 +22,7 @@ public:
     enum eFeatureName
     {
         kTimeRms,
+        kTimeStd,
         
         kNumFeatures
     };
@@ -31,4 +32,5 @@ public:
 private:
     
     float computeTimeRms(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    float computeTimeStd(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
 };
