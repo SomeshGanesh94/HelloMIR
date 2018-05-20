@@ -31,8 +31,11 @@ float FeatureComputation::computeFeature(FeatureComputation::eFeatureName featur
         case kTimeStd:
             return computeTimeStd(pfInputBuffer, fSampleRateInHz, iBlockLength);
             
+        case kTimeZcr:
+            return computeTimeZcr(pfInputBuffer, fSampleRateInHz, iBlockLength);
+            
         default:
-            return 0.0;
+            return 0.0f;
     }
 }
 
@@ -80,4 +83,20 @@ float FeatureComputation::computeTimeStd(float *pfInputBuffer, float fSampleRate
     fStd = sqrt(fStd);
     
     return fStd;
+}
+
+/* Compute time domain zero crossing rate */
+float FeatureComputation::computeTimeZcr(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+{
+    float fZcr = 0.0;
+    for (int iSample=1; iSample<iBlockLength; iSample++)
+    {
+        if (pfInputBuffer[iSample] * pfInputBuffer[iSample-1] < 0)
+        {
+            fZcr += 1.0;
+        }
+    }
+    fZcr /= float(iBlockLength - 1);
+    
+    return fZcr;
 }

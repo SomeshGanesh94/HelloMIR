@@ -23,6 +23,7 @@ public:
     {
         kTimeRms,
         kTimeStd,
+        kTimeZcr,
         
         kNumFeatures
     };
@@ -33,4 +34,5 @@ private:
     
     float computeTimeRms(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
     float computeTimeStd(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    float computeTimeZcr(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
 };
