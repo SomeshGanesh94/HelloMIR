@@ -12,6 +12,10 @@
       <FILE id="MIluih" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="r8xt1c" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="Yb8J57" name="FeatureComputation.cpp" compile="1" resource="0"
+            file="Source/FeatureComputation.cpp"/>
+      <FILE id="pAvS9J" name="FeatureComputation.h" compile="0" resource="0"
+            file="Source/FeatureComputation.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

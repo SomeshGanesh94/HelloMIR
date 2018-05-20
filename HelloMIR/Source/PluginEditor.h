@@ -35,7 +35,7 @@ private:
     
     Label m_lAppName;
     Label m_lCreatorName;
-    Label m_lCurrentSampleValue;
+    Label m_lCurrentDisplayValue;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessorEditor)
 };

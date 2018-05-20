@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "FeatureComputation.h"
 
 //==============================================================================
 /**
@@ -56,11 +57,13 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     //==============================================================================
-    float getCurrentSampleValue();
+    float getCurrentDisplayValue();
 
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessor)
     
-    float m_fCurrentSampleValue;
+    FeatureComputation *pCFeatureComputation;
+    
+    float m_fCurrentDisplayValue;
 };

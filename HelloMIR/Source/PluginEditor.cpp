@@ -28,9 +28,9 @@ HelloMirAudioProcessorEditor::HelloMirAudioProcessorEditor (HelloMirAudioProcess
     m_lCreatorName.setFont(12);
     addAndMakeVisible(m_lCreatorName);
     
-    m_lCurrentSampleValue.setText("0", dontSendNotification);
-    m_lCurrentSampleValue.setFont(12);
-    addAndMakeVisible(m_lCurrentSampleValue);
+    m_lCurrentDisplayValue.setText("0.0", dontSendNotification);
+    m_lCurrentDisplayValue.setFont(12);
+    addAndMakeVisible(m_lCurrentDisplayValue);
     
     // Timer
     startTimer(100);
@@ -55,11 +55,11 @@ void HelloMirAudioProcessorEditor::resized()
     // Labels
     m_lAppName.setBounds(350, 30, 100, 50);
     m_lCreatorName.setBounds(350, 80, 100, 30);
-    m_lCurrentSampleValue.setBounds(350, 150, 100, 30);
+    m_lCurrentDisplayValue.setBounds(350, 150, 100, 30);
 }
 
 void HelloMirAudioProcessorEditor::timerCallback()
 {
     // change value
-    m_lCurrentSampleValue.setText(String(processor.getCurrentSampleValue()), dontSendNotification);
+    m_lCurrentDisplayValue.setText(String(processor.getCurrentDisplayValue()), dontSendNotification);
 }

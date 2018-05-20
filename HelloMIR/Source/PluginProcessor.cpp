@@ -24,11 +24,17 @@ HelloMirAudioProcessor::HelloMirAudioProcessor()
                        )
 #endif
 {
-    m_fCurrentSampleValue = 0;
+    pCFeatureComputation = new FeatureComputation();
+    
+    m_fCurrentDisplayValue = 0.0;
 }
 
 HelloMirAudioProcessor::~HelloMirAudioProcessor()
 {
+    delete pCFeatureComputation;
+    pCFeatureComputation = nullptr;
+    
+    m_fCurrentDisplayValue = 0.0;
 }
 
 //==============================================================================
@@ -154,10 +160,10 @@ void HelloMirAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
+//        std::cout << pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimeRms, buffer.getWritePointer(channel), float(getSampleRate()), buffer.getNumSamples()) << " ";
+        m_fCurrentDisplayValue = pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimeRms, buffer.getWritePointer(channel), float(getSampleRate()), buffer.getNumSamples());
     }
-    m_fCurrentSampleValue = buffer.getSample(0, buffer.getNumSamples()-1);
+//    std::cout << std::endl;
 }
 
 //==============================================================================
@@ -192,7 +198,7 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new HelloMirAudioProcessor();
 }
 
-float HelloMirAudioProcessor::getCurrentSampleValue()
+float HelloMirAudioProcessor::getCurrentDisplayValue()
 {
-    return m_fCurrentSampleValue;
+    return m_fCurrentDisplayValue;
 }
