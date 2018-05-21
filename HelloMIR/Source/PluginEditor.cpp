@@ -33,7 +33,7 @@ HelloMirAudioProcessorEditor::HelloMirAudioProcessorEditor (HelloMirAudioProcess
     addAndMakeVisible(m_lCurrentDisplayValue);
     
     // Timer
-    startTimer(100);
+    startTimer(500);
 }
 
 HelloMirAudioProcessorEditor::~HelloMirAudioProcessorEditor()
@@ -61,5 +61,6 @@ void HelloMirAudioProcessorEditor::resized()
 void HelloMirAudioProcessorEditor::timerCallback()
 {
     // change value
-    m_lCurrentDisplayValue.setText(String(processor.getCurrentDisplayValue()), dontSendNotification);
+    float** ppfTemp = processor.getCurrentDisplayValue();
+    m_lCurrentDisplayValue.setText(String(ppfTemp[1][0]), dontSendNotification);
 }

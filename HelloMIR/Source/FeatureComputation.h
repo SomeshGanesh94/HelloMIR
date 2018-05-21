@@ -17,7 +17,7 @@ class FeatureComputation
 {
 public:
     
-    FeatureComputation();
+    FeatureComputation(int iNumChannels);
     ~FeatureComputation();
     
     enum eFeatureName
@@ -30,17 +30,17 @@ public:
         kNumFeatures
     };
     
-    float computeFeature(eFeatureName featureName, float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeFeature(eFeatureName featureName, float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
     
 private:
     
-    bool isParamInRange(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    bool isParamInRange(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
     
-    void computeTimeRms(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
-    void computeTimeStd(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
-    void computeTimeZcr(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
-    void computeTimePeakEnvelope(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeTimeRms(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeTimeStd(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeTimeZcr(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeTimePeakEnvelope(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
     
-    float* m_pfCurrentFeatureValue;
     eFeatureName m_eCurrentFeatureName;
+    int m_iNumChannels;
 };

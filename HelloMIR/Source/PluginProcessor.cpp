@@ -24,17 +24,10 @@ HelloMirAudioProcessor::HelloMirAudioProcessor()
                        )
 #endif
 {
-    pCFeatureComputation = new FeatureComputation();
-    
-    m_fCurrentDisplayValue = 0.0;
 }
 
 HelloMirAudioProcessor::~HelloMirAudioProcessor()
 {
-    delete pCFeatureComputation;
-    pCFeatureComputation = nullptr;
-    
-    m_fCurrentDisplayValue = 0.0;
 }
 
 //==============================================================================
@@ -104,12 +97,28 @@ void HelloMirAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    pCFeatureComputation = new FeatureComputation(getTotalNumInputChannels());
+    
+    m_ppfCurrentDisplayValue = new float*[getTotalNumInputChannels()];
+    for (int iChannel=0; iChannel<getTotalNumInputChannels(); iChannel++)
+    {
+        m_ppfCurrentDisplayValue[iChannel] = new float[samplesPerBlock];
+    }
 }
 
 void HelloMirAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
+    delete pCFeatureComputation;
+    pCFeatureComputation = nullptr;
+    
+    for (int iChannel=0; iChannel<getTotalNumInputChannels(); iChannel++)
+    {
+        delete [] m_ppfCurrentDisplayValue[iChannel];
+    }
+    delete [] m_ppfCurrentDisplayValue;
+    m_ppfCurrentDisplayValue = nullptr;
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -159,11 +168,11 @@ void HelloMirAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
     // interleaved by keeping the same state.
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
-//        std::cout << pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimeRms, buffer.getWritePointer(channel), float(getSampleRate()), buffer.getNumSamples()) << " ";
-        m_fCurrentDisplayValue = pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimeRms, buffer.getWritePointer(channel), float(getSampleRate()), buffer.getNumSamples());
+
+        pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimeRms, (float**) buffer.getArrayOfReadPointers(), m_ppfCurrentDisplayValue, float(getSampleRate()), buffer.getNumSamples());
+
     }
-//    std::cout << std::endl;
+
 }
 
 //==============================================================================
@@ -198,7 +207,7 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new HelloMirAudioProcessor();
 }
 
-float HelloMirAudioProcessor::getCurrentDisplayValue()
+float** HelloMirAudioProcessor::getCurrentDisplayValue()
 {
-    return m_fCurrentDisplayValue;
+    return m_ppfCurrentDisplayValue;
 }

@@ -12,53 +12,51 @@
 
 
 
-FeatureComputation::FeatureComputation()
+FeatureComputation::FeatureComputation(int iNumChannels): m_iNumChannels(iNumChannels)
 {
-    m_pfCurrentFeatureValue = new float;
     m_eCurrentFeatureName = kNumFeatures;
 }
 
 FeatureComputation::~FeatureComputation()
 {
-    delete m_pfCurrentFeatureValue;
-    m_pfCurrentFeatureValue = nullptr;
     m_eCurrentFeatureName = kNumFeatures;
+    m_iNumChannels = 0;
 }
 
 /* Choose and compute feature */
-float FeatureComputation::computeFeature(FeatureComputation::eFeatureName featureName, float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+void FeatureComputation::computeFeature(FeatureComputation::eFeatureName featureName, float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength)
 {
-    if (isParamInRange(pfInputBuffer, fSampleRateInHz, iBlockLength))
+    if (isParamInRange(ppfInputBuffer, ppfOutputBuffer, fSampleRateInHz, iBlockLength))
     {
         m_eCurrentFeatureName = featureName;
         switch (featureName)
         {
             case kTimeRms:
-                computeTimeRms(pfInputBuffer, fSampleRateInHz, iBlockLength);
-                return *m_pfCurrentFeatureValue;
+                computeTimeRms(ppfInputBuffer, ppfOutputBuffer, fSampleRateInHz, iBlockLength);
+                break;
             
             case kTimeStd:
-                computeTimeStd(pfInputBuffer, fSampleRateInHz, iBlockLength);
-                return *m_pfCurrentFeatureValue;
+                computeTimeStd(ppfInputBuffer, ppfOutputBuffer, fSampleRateInHz, iBlockLength);
+                break;
                 
             case kTimeZcr:
-                computeTimeZcr(pfInputBuffer, fSampleRateInHz, iBlockLength);
-                return *m_pfCurrentFeatureValue;
+                computeTimeZcr(ppfInputBuffer, ppfOutputBuffer, fSampleRateInHz, iBlockLength);
+                break;
                 
             default:
-                return 0.0f;
+                break;
         }
     }
     else
     {
-        return 0.0f;
+        return;
     }
 }
 
 /* Check if input parameters for feature computation are valid/in range */
-bool FeatureComputation::isParamInRange(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+bool FeatureComputation::isParamInRange(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength)
 {
-    if (pfInputBuffer == nullptr || fSampleRateInHz < 1 || iBlockLength < 1)
+    if (ppfInputBuffer == nullptr || ppfOutputBuffer == nullptr || fSampleRateInHz < 1 || iBlockLength < 1)
     {
         return false;
     }
@@ -69,64 +67,73 @@ bool FeatureComputation::isParamInRange(float *pfInputBuffer, float fSampleRateI
 }
 
 /* Compute time domain root mean square */
-void FeatureComputation::computeTimeRms(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+void FeatureComputation::computeTimeRms(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength)
 {
-    float fSquareSum = 0.0;
-    for (int iSample=0; iSample<iBlockLength; iSample++)
-    {
-        fSquareSum += pow(pfInputBuffer[iSample], 2);
-    }
-    
-    float fRms = sqrt(fSquareSum / float(iBlockLength));
-    
-    /* Convert to dB */
     float fEpsilon = 1e-5;
     
-    if (fRms < fEpsilon)
+    for (int iChannel=0; iChannel<m_iNumChannels; iChannel++)
     {
-        fRms = fEpsilon;
+        float fSquareSum = 0.0;
+        for (int iSample=0; iSample<iBlockLength; iSample++)
+        {
+            fSquareSum += pow(ppfInputBuffer[iChannel][iSample], 2);
+        }
+        
+        float fRms = sqrt(fSquareSum / float(iBlockLength));
+        
+        /* Convert to dB */
+        if (fRms < fEpsilon)
+        {
+            fRms = fEpsilon;
+        }
+        float fRmsInDB = 20.0 * log10(fRms);
+        
+        ppfOutputBuffer[iChannel][0] = fRmsInDB;
     }
-    float fRmsInDB = 20.0 * log10(fRms);
-    
-    m_pfCurrentFeatureValue[0] = fRmsInDB;
 }
 
 /* Compute time domain standard deviation*/
-void FeatureComputation::computeTimeStd(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+void FeatureComputation::computeTimeStd(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength)
 {
-    /* Compute mean */
-    float fMean = 0.0;
-    for (int iSample=0; iSample<iBlockLength; iSample++)
+    for (int iChannel=0; iChannel<m_iNumChannels; iChannel++)
     {
-        fMean += pfInputBuffer[iSample];
+        /* Compute mean */
+        float fMean = 0.0;
+        for (int iSample=0; iSample<iBlockLength; iSample++)
+        {
+            fMean += ppfInputBuffer[iChannel][iSample];
+        }
+        fMean /= float(iBlockLength);
+        
+        /* Compute std */
+        float fStd = 0.0;
+        for (int iSample=0; iSample<iBlockLength; iSample++)
+        {
+            fStd += pow((ppfInputBuffer[iChannel][iSample] - fMean), 2);
+        }
+        fStd /= iBlockLength;
+        fStd = sqrt(fStd);
+        
+        ppfOutputBuffer[iChannel][0] = fStd;
     }
-    fMean /= float(iBlockLength);
-    
-    /* Compute std */
-    float fStd = 0.0;
-    for (int iSample=0; iSample<iBlockLength; iSample++)
-    {
-        fStd += pow((pfInputBuffer[iSample] - fMean), 2);
-    }
-    fStd /= iBlockLength;
-    fStd = sqrt(fStd);
-    
-    m_pfCurrentFeatureValue[0] = fStd;
 }
 
 /* Compute time domain zero crossing rate */
-void FeatureComputation::computeTimeZcr(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+void FeatureComputation::computeTimeZcr(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength)
 {
-    float fZcr = 0.0;
-    for (int iSample=1; iSample<iBlockLength; iSample++)
+    for (int iChannel=0; iChannel<m_iNumChannels; iChannel++)
     {
-        if (pfInputBuffer[iSample] * pfInputBuffer[iSample-1] < 0)
+        float fZcr = 0.0;
+        for (int iSample=1; iSample<iBlockLength; iSample++)
         {
-            fZcr += 1.0;
+            if (ppfInputBuffer[iChannel][iSample] * ppfInputBuffer[iChannel][iSample-1] < 0)
+            {
+                fZcr += 1.0;
+            }
         }
+        fZcr /= float(iBlockLength - 1);
+        
+        ppfOutputBuffer[iChannel][0] = fZcr;
     }
-    fZcr /= float(iBlockLength - 1);
-    
-    m_pfCurrentFeatureValue[0] = fZcr;
 }
 

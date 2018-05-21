@@ -57,7 +57,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     //==============================================================================
-    float getCurrentDisplayValue();
+    float** getCurrentDisplayValue();
 
 private:
     //==============================================================================
@@ -65,5 +65,5 @@ private:
     
     FeatureComputation *pCFeatureComputation;
     
-    float m_fCurrentDisplayValue;
+    float** m_ppfCurrentDisplayValue;
 };
