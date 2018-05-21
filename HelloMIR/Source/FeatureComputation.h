@@ -12,6 +12,7 @@
 #include <iostream>
 #include <math.h>
 
+/* Struct for storing all feature values */
 struct FeatureValues
 {
     FeatureValues()
@@ -38,7 +39,9 @@ struct FeatureValues
     float* pfTimeZcr;
 };
 
+//==========================================================================
 
+/* Class for feature computation */
 class FeatureComputation
 {
 public:

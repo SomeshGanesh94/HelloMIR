@@ -52,6 +52,7 @@ float FeatureComputation::computeFeature(FeatureComputation::eFeatureName featur
     }
 }
 
+/* Check if input parameters for feature computation are valid/in range */
 bool FeatureComputation::isParamInRange(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
 {
     if (pfInputBuffer == nullptr || fSampleRateInHz < 1 || iBlockLength < 1)
