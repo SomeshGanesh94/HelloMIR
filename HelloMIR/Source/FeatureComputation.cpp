@@ -14,13 +14,15 @@
 
 FeatureComputation::FeatureComputation()
 {
-    m_pSFeatureValues = new FeatureValues();
+    m_pfCurrentFeatureValue = new float;
+    m_eCurrentFeatureName = kNumFeatures;
 }
 
 FeatureComputation::~FeatureComputation()
 {
-    delete m_pSFeatureValues;
-    m_pSFeatureValues = nullptr;
+    delete m_pfCurrentFeatureValue;
+    m_pfCurrentFeatureValue = nullptr;
+    m_eCurrentFeatureName = kNumFeatures;
 }
 
 /* Choose and compute feature */
@@ -28,19 +30,20 @@ float FeatureComputation::computeFeature(FeatureComputation::eFeatureName featur
 {
     if (isParamInRange(pfInputBuffer, fSampleRateInHz, iBlockLength))
     {
+        m_eCurrentFeatureName = featureName;
         switch (featureName)
         {
             case kTimeRms:
                 computeTimeRms(pfInputBuffer, fSampleRateInHz, iBlockLength);
-                return *m_pSFeatureValues->pfTimeRms;
+                return *m_pfCurrentFeatureValue;
             
             case kTimeStd:
                 computeTimeStd(pfInputBuffer, fSampleRateInHz, iBlockLength);
-                return *m_pSFeatureValues->pfTimeStd;
+                return *m_pfCurrentFeatureValue;
                 
             case kTimeZcr:
                 computeTimeZcr(pfInputBuffer, fSampleRateInHz, iBlockLength);
-                return *m_pSFeatureValues->pfTimeZcr;
+                return *m_pfCurrentFeatureValue;
                 
             default:
                 return 0.0f;
@@ -85,7 +88,7 @@ void FeatureComputation::computeTimeRms(float *pfInputBuffer, float fSampleRateI
     }
     float fRmsInDB = 20.0 * log10(fRms);
     
-    m_pSFeatureValues->pfTimeRms[0] = fRmsInDB;
+    m_pfCurrentFeatureValue[0] = fRmsInDB;
 }
 
 /* Compute time domain standard deviation*/
@@ -108,7 +111,7 @@ void FeatureComputation::computeTimeStd(float *pfInputBuffer, float fSampleRateI
     fStd /= iBlockLength;
     fStd = sqrt(fStd);
     
-    m_pSFeatureValues->pfTimeStd[0] = fStd;
+    m_pfCurrentFeatureValue[0] = fStd;
 }
 
 /* Compute time domain zero crossing rate */
@@ -124,5 +127,6 @@ void FeatureComputation::computeTimeZcr(float *pfInputBuffer, float fSampleRateI
     }
     fZcr /= float(iBlockLength - 1);
     
-    m_pSFeatureValues->pfTimeZcr[0] = fZcr;
+    m_pfCurrentFeatureValue[0] = fZcr;
 }
+

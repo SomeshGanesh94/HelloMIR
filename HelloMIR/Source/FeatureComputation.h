@@ -12,35 +12,6 @@
 #include <iostream>
 #include <math.h>
 
-/* Struct for storing all feature values */
-struct FeatureValues
-{
-    FeatureValues()
-    {
-        pfTimeRms = new float;
-        pfTimeStd = new float;
-        pfTimeZcr = new float;
-    }
-    
-    ~FeatureValues()
-    {
-        delete pfTimeRms;
-        pfTimeRms = nullptr;
-        
-        delete pfTimeStd;
-        pfTimeStd = nullptr;
-        
-        delete pfTimeZcr;
-        pfTimeZcr = nullptr;
-    }
-    
-    float* pfTimeRms;
-    float* pfTimeStd;
-    float* pfTimeZcr;
-};
-
-//==========================================================================
-
 /* Class for feature computation */
 class FeatureComputation
 {
@@ -54,7 +25,7 @@ public:
         kTimeRms,
         kTimeStd,
         kTimeZcr,
-        
+        kTimePeakEnvelope,
         
         kNumFeatures
     };
@@ -68,6 +39,8 @@ private:
     void computeTimeRms(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
     void computeTimeStd(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
     void computeTimeZcr(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeTimePeakEnvelope(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
     
-    FeatureValues* m_pSFeatureValues;
+    float* m_pfCurrentFeatureValue;
+    eFeatureName m_eCurrentFeatureName;
 };
