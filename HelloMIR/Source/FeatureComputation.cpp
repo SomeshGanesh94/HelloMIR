@@ -10,37 +10,62 @@
 
 #include "FeatureComputation.h"
 
+
+
 FeatureComputation::FeatureComputation()
 {
-    
+    m_pSFeatureValues = new FeatureValues();
 }
 
 FeatureComputation::~FeatureComputation()
 {
-    
+    delete m_pSFeatureValues;
+    m_pSFeatureValues = nullptr;
 }
 
 /* Choose and compute feature */
 float FeatureComputation::computeFeature(FeatureComputation::eFeatureName featureName, float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
 {
-    switch (featureName)
+    if (isParamInRange(pfInputBuffer, fSampleRateInHz, iBlockLength))
     {
-        case kTimeRms:
-            return computeTimeRms(pfInputBuffer, fSampleRateInHz, iBlockLength);
-        
-        case kTimeStd:
-            return computeTimeStd(pfInputBuffer, fSampleRateInHz, iBlockLength);
+        switch (featureName)
+        {
+            case kTimeRms:
+                computeTimeRms(pfInputBuffer, fSampleRateInHz, iBlockLength);
+                return *m_pSFeatureValues->pfTimeRms;
             
-        case kTimeZcr:
-            return computeTimeZcr(pfInputBuffer, fSampleRateInHz, iBlockLength);
-            
-        default:
-            return 0.0f;
+            case kTimeStd:
+                computeTimeStd(pfInputBuffer, fSampleRateInHz, iBlockLength);
+                return *m_pSFeatureValues->pfTimeStd;
+                
+            case kTimeZcr:
+                computeTimeZcr(pfInputBuffer, fSampleRateInHz, iBlockLength);
+                return *m_pSFeatureValues->pfTimeZcr;
+                
+            default:
+                return 0.0f;
+        }
+    }
+    else
+    {
+        return 0.0f;
+    }
+}
+
+bool FeatureComputation::isParamInRange(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+{
+    if (pfInputBuffer == nullptr || fSampleRateInHz < 1 || iBlockLength < 1)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
     }
 }
 
 /* Compute time domain root mean square */
-float FeatureComputation::computeTimeRms(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+void FeatureComputation::computeTimeRms(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
 {
     float fSquareSum = 0.0;
     for (int iSample=0; iSample<iBlockLength; iSample++)
@@ -59,11 +84,11 @@ float FeatureComputation::computeTimeRms(float *pfInputBuffer, float fSampleRate
     }
     float fRmsInDB = 20.0 * log10(fRms);
     
-    return fRmsInDB;
+    m_pSFeatureValues->pfTimeRms[0] = fRmsInDB;
 }
 
 /* Compute time domain standard deviation*/
-float FeatureComputation::computeTimeStd(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+void FeatureComputation::computeTimeStd(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
 {
     /* Compute mean */
     float fMean = 0.0;
@@ -82,11 +107,11 @@ float FeatureComputation::computeTimeStd(float *pfInputBuffer, float fSampleRate
     fStd /= iBlockLength;
     fStd = sqrt(fStd);
     
-    return fStd;
+    m_pSFeatureValues->pfTimeStd[0] = fStd;
 }
 
 /* Compute time domain zero crossing rate */
-float FeatureComputation::computeTimeZcr(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
+void FeatureComputation::computeTimeZcr(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength)
 {
     float fZcr = 0.0;
     for (int iSample=1; iSample<iBlockLength; iSample++)
@@ -98,5 +123,5 @@ float FeatureComputation::computeTimeZcr(float *pfInputBuffer, float fSampleRate
     }
     fZcr /= float(iBlockLength - 1);
     
-    return fZcr;
+    m_pSFeatureValues->pfTimeZcr[0] = fZcr;
 }

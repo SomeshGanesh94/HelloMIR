@@ -12,6 +12,33 @@
 #include <iostream>
 #include <math.h>
 
+struct FeatureValues
+{
+    FeatureValues()
+    {
+        pfTimeRms = new float;
+        pfTimeStd = new float;
+        pfTimeZcr = new float;
+    }
+    
+    ~FeatureValues()
+    {
+        delete pfTimeRms;
+        pfTimeRms = nullptr;
+        
+        delete pfTimeStd;
+        pfTimeStd = nullptr;
+        
+        delete pfTimeZcr;
+        pfTimeZcr = nullptr;
+    }
+    
+    float* pfTimeRms;
+    float* pfTimeStd;
+    float* pfTimeZcr;
+};
+
+
 class FeatureComputation
 {
 public:
@@ -25,6 +52,7 @@ public:
         kTimeStd,
         kTimeZcr,
         
+        
         kNumFeatures
     };
     
@@ -32,7 +60,11 @@ public:
     
 private:
     
-    float computeTimeRms(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
-    float computeTimeStd(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
-    float computeTimeZcr(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    bool isParamInRange(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    
+    void computeTimeRms(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeTimeStd(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeTimeZcr(float *pfInputBuffer, float fSampleRateInHz, int iBlockLength);
+    
+    FeatureValues* m_pSFeatureValues;
 };
