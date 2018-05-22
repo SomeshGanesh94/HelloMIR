@@ -6,6 +6,7 @@ The following features can be computed.
 1. Time domain RMS (root mean square)
 2. Time domain ZCR (zero crossing rate)
 3. Time domain std (standard deviation)
+4. Time domain peak envelopes (1: Maximum value, 2: PPM)
 
 ## Contact
 Please reach out to someshganesh94@gmail.com if you have any questions/comments.
