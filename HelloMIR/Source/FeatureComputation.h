@@ -17,7 +17,7 @@ class FeatureComputation
 {
 public:
     
-    FeatureComputation(int iNumChannels);
+    FeatureComputation(int iNumChannels, float fSampleRateInHz, int iBlockLength);
     ~FeatureComputation();
     
     enum eFeatureName
@@ -30,17 +30,37 @@ public:
         kNumFeatures
     };
     
-    void computeFeature(eFeatureName featureName, float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeFeature(eFeatureName featureName, float **ppfInputBuffer, float **ppfOutputBuffer);
     
 private:
     
-    bool isParamInRange(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
+    bool isParamInRange(float **ppfInputBuffer, float **ppfOutputBuffer);
     
-    void computeTimeRms(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
-    void computeTimeStd(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
-    void computeTimeZcr(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
-    void computeTimePeakEnvelope(float **ppfInputBuffer, float **ppfOutputBuffer, float fSampleRateInHz, int iBlockLength);
+    void computeTimeRms(float **ppfInputBuffer, float **ppfOutputBuffer);
+    void computeTimeStd(float **ppfInputBuffer, float **ppfOutputBuffer);
+    void computeTimeZcr(float **ppfInputBuffer, float **ppfOutputBuffer);
+    void computeTimePeakEnvelope(float **ppfInputBuffer, float **ppfOutputBuffer);
     
     eFeatureName m_eCurrentFeatureName;
     int m_iNumChannels;
+    int m_iBlockLength;
+    float m_fSampleRateInHz;
+    
+    //============================================================================================
+    /* Feature specific variables */
+    
+    /* TimeRms */
+    float m_fEpsilon;
+    
+    /* TimePeakEnvelope */
+    enum eAlphaType
+    {
+        kAlphaAttack,
+        kAlphaRelease,
+        
+        kNumAlphaTypes
+    };
+    float m_fAlpha[kNumAlphaTypes];
+    float m_fFilterBuf;
+    float **m_ppfVpTemp;
 };

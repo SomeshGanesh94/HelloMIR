@@ -97,7 +97,7 @@ void HelloMirAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    pCFeatureComputation = new FeatureComputation(getTotalNumInputChannels());
+    pCFeatureComputation = new FeatureComputation(getTotalNumInputChannels(), float(sampleRate), samplesPerBlock);
     
     m_ppfCurrentDisplayValue = new float*[getTotalNumInputChannels()];
     for (int iChannel=0; iChannel<getTotalNumInputChannels(); iChannel++)
@@ -169,7 +169,7 @@ void HelloMirAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
 
-        pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimeRms, (float**) buffer.getArrayOfReadPointers(), m_ppfCurrentDisplayValue, float(getSampleRate()), buffer.getNumSamples());
+        pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimePeakEnvelope, (float**) buffer.getArrayOfReadPointers(), m_ppfCurrentDisplayValue);
 
     }
 
