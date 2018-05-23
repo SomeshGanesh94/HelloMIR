@@ -26,6 +26,7 @@ public:
         kTimeStd,
         kTimeZcr,
         kTimePeakEnvelope,
+        kTimeAutoCorrelation,
         
         kNumFeatures
     };
@@ -40,6 +41,7 @@ private:
     void computeTimeStd(float **ppfInputBuffer, float **ppfOutputBuffer);
     void computeTimeZcr(float **ppfInputBuffer, float **ppfOutputBuffer);
     void computeTimePeakEnvelope(float **ppfInputBuffer, float **ppfOutputBuffer);
+    void computeTimeAutoCorrelation(float **ppfInputBuffer, float **ppfOutputBuffer);
     
     eFeatureName m_eCurrentFeatureName;
     int m_iNumChannels;
@@ -47,6 +49,8 @@ private:
     float m_fSampleRateInHz;
     
     //============================================================================================
+    /* Private helper functions */
+    
     /* Feature specific variables */
     
     /* TimeRms */

@@ -59,7 +59,7 @@ void FeatureComputation::computeFeature(FeatureComputation::eFeatureName feature
     if (isParamInRange(ppfInputBuffer, ppfOutputBuffer))
     {
         m_eCurrentFeatureName = featureName;
-        switch (featureName)
+        switch (m_eCurrentFeatureName)
         {
             case kTimeRms:
                 computeTimeRms(ppfInputBuffer, ppfOutputBuffer);
@@ -75,6 +75,9 @@ void FeatureComputation::computeFeature(FeatureComputation::eFeatureName feature
                 
             case kTimePeakEnvelope:
                 computeTimePeakEnvelope(ppfInputBuffer, ppfOutputBuffer);
+                
+            case kTimeAutoCorrelation:
+                computeTimeAutoCorrelation(ppfInputBuffer, ppfOutputBuffer);
                 
             default:
                 break;
@@ -203,3 +206,23 @@ void FeatureComputation::computeTimePeakEnvelope(float **ppfInputBuffer, float *
         ppfOutputBuffer[iChannel][1] = fMaxValue1;
     }
 }
+
+/* Compute time domain auto correlation */
+void FeatureComputation::computeTimeAutoCorrelation(float **ppfInputBuffer, float **ppfOutputBuffer)
+{
+    for (int iChannel=0; iChannel<m_iNumChannels; iChannel++)
+    {
+        for (int iSample=0; iSample<m_iBlockLength; iSample++)
+        {
+            float fSum = 0.0;
+            for (int j=0; j<m_iBlockLength-iSample; j++)
+            {
+                fSum += ppfInputBuffer[iChannel][j] * ppfInputBuffer[iChannel][j+iSample];
+            }
+            ppfOutputBuffer[iChannel][iSample] = fSum;
+        }
+    }
+}
+
+//==============================================================================
+/* Private helper functions */
