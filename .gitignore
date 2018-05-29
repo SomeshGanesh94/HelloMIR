@@ -1,3 +1,7 @@
+// Main JUCE project
 Builds
 
 JuceLibraryCode
+
+// Test code
+HelloMIR_TEST.xcodeproj
