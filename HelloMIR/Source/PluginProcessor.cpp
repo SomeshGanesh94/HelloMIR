@@ -24,6 +24,7 @@ HelloMirAudioProcessor::HelloMirAudioProcessor()
                        )
 #endif
 {
+    pFeature = nullptr;
 }
 
 HelloMirAudioProcessor::~HelloMirAudioProcessor()
@@ -97,21 +98,20 @@ void HelloMirAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    pCFeatureComputation = new FeatureComputation(getTotalNumInputChannels(), float(sampleRate), samplesPerBlock);
     
     m_ppfCurrentDisplayValue = new float*[getTotalNumInputChannels()];
     for (int iChannel=0; iChannel<getTotalNumInputChannels(); iChannel++)
     {
         m_ppfCurrentDisplayValue[iChannel] = new float[samplesPerBlock];
     }
+    
+    m_iBlockLength = samplesPerBlock;
 }
 
 void HelloMirAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
-    delete pCFeatureComputation;
-    pCFeatureComputation = nullptr;
     
     for (int iChannel=0; iChannel<getTotalNumInputChannels(); iChannel++)
     {
@@ -166,13 +166,14 @@ void HelloMirAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
 
-        pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimePeakEnvelope, (float**) buffer.getArrayOfReadPointers(), m_ppfCurrentDisplayValue);
+//    pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimeRms, (float**) buffer.getArrayOfReadPointers(), m_ppfCurrentDisplayValue);
+
+    if (pFeature != nullptr)
+    {
+        pFeature->process((float**) buffer.getArrayOfReadPointers(), m_ppfCurrentDisplayValue);
 
     }
-
 }
 
 //==============================================================================
@@ -210,4 +211,28 @@ AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 float** HelloMirAudioProcessor::getCurrentDisplayValue()
 {
     return m_ppfCurrentDisplayValue;
+}
+
+Error_t HelloMirAudioProcessor::setFeature(Feature_t featureType)
+{
+    if (pFeature != nullptr)
+    {
+        pFeature->reset();
+        delete pFeature;
+    }
+    
+    switch (featureType)
+    {
+        case kTimeRms:
+            pFeature = new TimeRms();
+            break;
+            
+        default:
+            pFeature = new TimeRms();
+            break;
+    }
+    
+    pFeature->init(this->getSampleRate(), this->getTotalNumInputChannels(), m_iBlockLength);
+    
+    return kNoError;
 }

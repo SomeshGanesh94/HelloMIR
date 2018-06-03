@@ -11,7 +11,8 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "FeatureComputation.h"
+//#include "FeatureComputation.h"
+#include "TimeRms.h"
 
 //==============================================================================
 /**
@@ -58,12 +59,15 @@ public:
     
     //==============================================================================
     float** getCurrentDisplayValue();
+    Error_t setFeature(Feature_t featureType);
 
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessor)
     
-    FeatureComputation *pCFeatureComputation;
+    AbstractFeature *pFeature;
     
     float** m_ppfCurrentDisplayValue;
+    
+    int m_iBlockLength;
 };

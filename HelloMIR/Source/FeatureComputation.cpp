@@ -226,3 +226,8 @@ void FeatureComputation::computeTimeAutoCorrelation(float **ppfInputBuffer, floa
 
 //==============================================================================
 /* Private helper functions */
+
+void FeatureComputation::computeSpectrogram(float **ppfInputBuffer)
+{
+    
+}

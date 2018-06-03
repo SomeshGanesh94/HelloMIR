@@ -12,11 +12,12 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
+#include "TimeRmsUI.h"
 
 //==============================================================================
 /**
 */
-class HelloMirAudioProcessorEditor  : public AudioProcessorEditor, public Timer
+class HelloMirAudioProcessorEditor  : public AudioProcessorEditor, public Timer, public ComboBox::Listener
 {
 public:
     HelloMirAudioProcessorEditor (HelloMirAudioProcessor&);
@@ -27,6 +28,7 @@ public:
     void resized() override;
     
     void timerCallback() override;
+    void comboBoxChanged(ComboBox *cb) override;
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -36,6 +38,8 @@ private:
     Label m_lAppName;
     Label m_lCreatorName;
     Label m_lCurrentDisplayValue;
+    
+    ComboBox m_cbFeatureSelect;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessorEditor)
 };

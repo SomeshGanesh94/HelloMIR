@@ -10,7 +10,7 @@
 
 #pragma once
 #include <iostream>
-#include <math.h>
+#include "AbstractFeature.h"
 
 /* Class for feature computation */
 class FeatureComputation
@@ -33,9 +33,17 @@ public:
     
     void computeFeature(eFeatureName featureName, float **ppfInputBuffer, float **ppfOutputBuffer);
     
-private:
+    enum eWindowType
+    {
+        kRectWindow,
+        kHannWindow,
+        kHammingWindow,
+        kBlackmanWindow,
+        
+        kNumWindows
+    };
     
-    bool isParamInRange(float **ppfInputBuffer, float **ppfOutputBuffer);
+private:
     
     void computeTimeRms(float **ppfInputBuffer, float **ppfOutputBuffer);
     void computeTimeStd(float **ppfInputBuffer, float **ppfOutputBuffer);
@@ -48,23 +56,7 @@ private:
     int m_iBlockLength;
     float m_fSampleRateInHz;
     
-    //============================================================================================
-    /* Private helper functions */
     
-    /* Feature specific variables */
     
-    /* TimeRms */
-    float m_fEpsilon;
-    
-    /* TimePeakEnvelope */
-    enum eAlphaType
-    {
-        kAlphaAttack,
-        kAlphaRelease,
-        
-        kNumAlphaTypes
-    };
-    float m_fAlpha[kNumAlphaTypes];
-    float m_fFilterBuf;
-    float **m_ppfVpTemp;
+    AbstractFeature *pFeature;
 };

@@ -5,6 +5,17 @@
               pluginFormats="buildVST" pluginManufacturer="SomeshGanesh">
   <MAINGROUP id="RsALwM" name="HelloMIR">
     <GROUP id="{5B4D833D-8226-1BE4-D003-784B344D4AB2}" name="Source">
+      <FILE id="WzKepp" name="FeatureDef.h" compile="0" resource="0" file="Source/FeatureDef.h"/>
+      <FILE id="LJvVq9" name="ErrorDef.h" compile="0" resource="0" file="Source/ErrorDef.h"/>
+      <GROUP id="{42AAEF8F-1E47-28EF-A5DB-165E3C8AB57A}" name="FeatureComputation">
+        <FILE id="OhewNm" name="AbstractFeature.h" compile="0" resource="0"
+              file="Source/AbstractFeature.h"/>
+        <FILE id="w1tZHO" name="TimeRms.cpp" compile="1" resource="0" file="Source/TimeRms.cpp"/>
+        <FILE id="JHKQOz" name="TimeRms.h" compile="0" resource="0" file="Source/TimeRms.h"/>
+      </GROUP>
+      <GROUP id="{0516243A-46E2-6A54-D58F-2E7FD53321BA}" name="GUI">
+        <FILE id="t7RcOm" name="TimeRmsUI.h" compile="0" resource="0" file="Source/TimeRmsUI.h"/>
+      </GROUP>
       <FILE id="IXydAW" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="jAU3Ah" name="PluginProcessor.h" compile="0" resource="0"
@@ -12,10 +23,6 @@
       <FILE id="MIluih" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="r8xt1c" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
-      <FILE id="Yb8J57" name="FeatureComputation.cpp" compile="1" resource="0"
-            file="Source/FeatureComputation.cpp"/>
-      <FILE id="pAvS9J" name="FeatureComputation.h" compile="0" resource="0"
-            file="Source/FeatureComputation.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
