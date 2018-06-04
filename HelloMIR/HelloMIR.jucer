@@ -5,16 +5,20 @@
               pluginFormats="buildVST" pluginManufacturer="SomeshGanesh">
   <MAINGROUP id="RsALwM" name="HelloMIR">
     <GROUP id="{5B4D833D-8226-1BE4-D003-784B344D4AB2}" name="Source">
-      <FILE id="WzKepp" name="FeatureDef.h" compile="0" resource="0" file="Source/FeatureDef.h"/>
-      <FILE id="LJvVq9" name="ErrorDef.h" compile="0" resource="0" file="Source/ErrorDef.h"/>
-      <GROUP id="{42AAEF8F-1E47-28EF-A5DB-165E3C8AB57A}" name="FeatureComputation">
-        <FILE id="OhewNm" name="AbstractFeature.h" compile="0" resource="0"
-              file="Source/AbstractFeature.h"/>
-        <FILE id="w1tZHO" name="TimeRms.cpp" compile="1" resource="0" file="Source/TimeRms.cpp"/>
-        <FILE id="JHKQOz" name="TimeRms.h" compile="0" resource="0" file="Source/TimeRms.h"/>
+      <GROUP id="{5212417B-213C-D7FD-CBBB-9412A97E4856}" name="FeatureComputation">
+        <FILE id="BboJtk" name="AbstractFeature.h" compile="0" resource="0"
+              file="Source/FeatureComputation/AbstractFeature.h"/>
+        <FILE id="ncJyAU" name="TimeRms.cpp" compile="1" resource="0" file="Source/FeatureComputation/TimeRms.cpp"/>
+        <FILE id="fDY6hd" name="TimeRms.h" compile="0" resource="0" file="Source/FeatureComputation/TimeRms.h"/>
       </GROUP>
-      <GROUP id="{0516243A-46E2-6A54-D58F-2E7FD53321BA}" name="GUI">
-        <FILE id="t7RcOm" name="TimeRmsUI.h" compile="0" resource="0" file="Source/TimeRmsUI.h"/>
+      <GROUP id="{C85AFC7F-846C-4277-BB92-4CE42C1CFD45}" name="Global">
+        <FILE id="lBEh9k" name="ErrorDef.h" compile="0" resource="0" file="Source/Global/ErrorDef.h"/>
+        <FILE id="HX6BYs" name="FeatureDef.h" compile="0" resource="0" file="Source/Global/FeatureDef.h"/>
+      </GROUP>
+      <GROUP id="{EFF28AE0-16B6-F7FA-196B-9C4A57DB914B}" name="GUI">
+        <FILE id="iWDIR6" name="AbstractFeatureUI.h" compile="0" resource="0"
+              file="Source/GUI/AbstractFeatureUI.h"/>
+        <FILE id="p8eMrj" name="TimeRmsUI.h" compile="0" resource="0" file="Source/GUI/TimeRmsUI.h"/>
       </GROUP>
       <FILE id="IXydAW" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

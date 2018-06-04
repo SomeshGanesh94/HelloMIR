@@ -11,11 +11,12 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "AbstractFeatureUI.h"
 
 //==============================================================================
 /*
 */
-class TimeRmsUI    : public Component
+class TimeRmsUI    : public AbstractFeatureUI
 {
 public:
     TimeRmsUI()
@@ -75,7 +76,7 @@ public:
     {
     }
 
-    void setValue (float **ppfRmsValue)
+    void setValue (float **ppfRmsValue) override
     {
         for (int iChannel=0; iChannel<m_iNumChannels; iChannel++)
         {

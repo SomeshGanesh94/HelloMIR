@@ -9,9 +9,9 @@
 */
 
 #pragma once
-#include "ErrorDef.h"
+#include "../Global/ErrorDef.h"
 #include <math.h>
-#include "FeatureDef.h"
+#include "../Global/FeatureDef.h"
 
 class AbstractFeature
 {

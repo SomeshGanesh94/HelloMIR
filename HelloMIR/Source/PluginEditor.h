@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-#include "TimeRmsUI.h"
+#include "GUI/TimeRmsUI.h"
 
 //==============================================================================
 /**
@@ -31,8 +31,7 @@ public:
     void comboBoxChanged(ComboBox *cb) override;
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
+    /* This reference is provided as a quick way for your editor to access the processor object that created it */
     HelloMirAudioProcessor& processor;
     
     Label m_lAppName;

@@ -15,8 +15,6 @@
 HelloMirAudioProcessorEditor::HelloMirAudioProcessorEditor (HelloMirAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
     setSize (800, 600);
     
     addAndMakeVisible(m_TimeRmsUI);
@@ -58,9 +56,6 @@ void HelloMirAudioProcessorEditor::paint (Graphics& g)
 
 void HelloMirAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
-    
     m_TimeRmsUI.setBounds(350, 250, 120, 250);
     m_TimeRmsUI.setNumChannels(processor.getTotalNumInputChannels());
     
