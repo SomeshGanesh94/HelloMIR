@@ -11,7 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "FeatureComputation/TimeRms.h"
+#include "FeatureComputation/FeatureHeaders.h"
 
 //==============================================================================
 /**

@@ -8,6 +8,8 @@
       <GROUP id="{5212417B-213C-D7FD-CBBB-9412A97E4856}" name="FeatureComputation">
         <FILE id="BboJtk" name="AbstractFeature.h" compile="0" resource="0"
               file="Source/FeatureComputation/AbstractFeature.h"/>
+        <FILE id="tgktJC" name="FeatureHeaders.h" compile="0" resource="0"
+              file="Source/FeatureComputation/FeatureHeaders.h"/>
         <FILE id="ncJyAU" name="TimeRms.cpp" compile="1" resource="0" file="Source/FeatureComputation/TimeRms.cpp"/>
         <FILE id="fDY6hd" name="TimeRms.h" compile="0" resource="0" file="Source/FeatureComputation/TimeRms.h"/>
       </GROUP>
@@ -18,6 +20,8 @@
       <GROUP id="{EFF28AE0-16B6-F7FA-196B-9C4A57DB914B}" name="GUI">
         <FILE id="iWDIR6" name="AbstractFeatureUI.h" compile="0" resource="0"
               file="Source/GUI/AbstractFeatureUI.h"/>
+        <FILE id="znqatL" name="FeatureUIHeaders.h" compile="0" resource="0"
+              file="Source/GUI/FeatureUIHeaders.h"/>
         <FILE id="p8eMrj" name="TimeRmsUI.h" compile="0" resource="0" file="Source/GUI/TimeRmsUI.h"/>
       </GROUP>
       <FILE id="IXydAW" name="PluginProcessor.cpp" compile="1" resource="0"

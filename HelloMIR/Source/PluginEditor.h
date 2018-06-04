@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-#include "GUI/TimeRmsUI.h"
+#include "GUI/FeatureUIHeaders.h"
 
 //==============================================================================
 /**
