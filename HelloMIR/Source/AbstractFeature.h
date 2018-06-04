@@ -26,6 +26,11 @@ public:
     virtual Error_t process(float **ppfInputBuffer, float **ppfOutputBuffer) = 0;
     virtual bool isInitialized() = 0;
     
+    virtual int getNumChannels()
+    {
+        return m_iNumChannels;
+    }
+    
 protected:
     
     bool m_bIsInitialized;

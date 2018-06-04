@@ -40,6 +40,8 @@ private:
     Label m_lCurrentDisplayValue;
     
     ComboBox m_cbFeatureSelect;
+    
+    TimeRmsUI m_TimeRmsUI;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessorEditor)
 };

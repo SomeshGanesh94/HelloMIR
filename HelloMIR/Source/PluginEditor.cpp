@@ -19,9 +19,12 @@ HelloMirAudioProcessorEditor::HelloMirAudioProcessorEditor (HelloMirAudioProcess
     // editor's size to whatever you need it to be.
     setSize (800, 600);
     
+    addAndMakeVisible(m_TimeRmsUI);
+    m_TimeRmsUI.setSize(120, 250);
+    
     /* Labels */
     m_lAppName.setText("Hello MIR", dontSendNotification);
-    m_lAppName.setFont(18);
+    m_lAppName.setFont(24);
     addAndMakeVisible(m_lAppName);
     
     m_lCreatorName.setText("Somesh Ganesh", dontSendNotification);
@@ -39,7 +42,7 @@ HelloMirAudioProcessorEditor::HelloMirAudioProcessorEditor (HelloMirAudioProcess
     addAndMakeVisible(m_cbFeatureSelect);
     
     /* Timer */
-    startTimer(500);
+    startTimer(100);
 }
 
 HelloMirAudioProcessorEditor::~HelloMirAudioProcessorEditor()
@@ -58,13 +61,16 @@ void HelloMirAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     
+    m_TimeRmsUI.setBounds(350, 250, 120, 250);
+    m_TimeRmsUI.setNumChannels(processor.getTotalNumInputChannels());
+    
     /* Labels */
-    m_lAppName.setBounds(350, 30, 100, 50);
-    m_lCreatorName.setBounds(350, 80, 100, 30);
-    m_lCurrentDisplayValue.setBounds(350, 150, 100, 30);
+    m_lAppName.setBounds(350, 20, 100, 50);
+    m_lCreatorName.setBounds(355, 50, 100, 30);
+    m_lCurrentDisplayValue.setBounds(375, 150, 100, 30);
     
     /* Combo box */
-    m_cbFeatureSelect.setBounds(350, 200, 100, 50);
+    m_cbFeatureSelect.setBounds(300, 200, 200, 25);
 }
 
 void HelloMirAudioProcessorEditor::timerCallback()
@@ -72,6 +78,8 @@ void HelloMirAudioProcessorEditor::timerCallback()
     /* Change value */
     float** ppfTemp = processor.getCurrentDisplayValue();
     m_lCurrentDisplayValue.setText(String(ppfTemp[0][0]), dontSendNotification);
+    
+    m_TimeRmsUI.setValue(ppfTemp);
 }
 
 void HelloMirAudioProcessorEditor::comboBoxChanged(ComboBox *cb)
