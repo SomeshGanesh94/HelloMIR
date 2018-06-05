@@ -86,6 +86,25 @@ void HelloMirAudioProcessorEditor::comboBoxChanged(ComboBox *cb)
     if (cb == &m_cbFeatureSelect)
     {
         int iItemId = m_cbFeatureSelect.getSelectedId();
-        processor.setFeature(static_cast<Feature_t>(iItemId - 1));
+        Feature_t feature = static_cast<Feature_t>(iItemId - 1);
+        std::cout << feature << std::endl;
+        processor.setFeature(feature);
+        
+        if (m_pFeatureUI != nullptr)
+        {
+            delete m_pFeatureUI;
+        }
+        
+        switch(feature)
+        {
+            case kTimeRms:
+                m_pFeatureUI = new TimeRmsUI();
+                break;
+                
+            default:
+                m_pFeatureUI = new FeatureUIBase();
+        }
+        addAndMakeVisible(m_pFeatureUI);
+        this->resized();
     }
 }
