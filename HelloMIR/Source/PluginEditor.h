@@ -40,7 +40,7 @@ private:
     
     ComboBox m_cbFeatureSelect;
     
-    TimeRmsUI m_TimeRmsUI;
+    FeatureUIBase *m_pFeatureUI;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessorEditor)
 };

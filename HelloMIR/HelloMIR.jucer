@@ -18,8 +18,7 @@
         <FILE id="HX6BYs" name="FeatureDef.h" compile="0" resource="0" file="Source/Global/FeatureDef.h"/>
       </GROUP>
       <GROUP id="{EFF28AE0-16B6-F7FA-196B-9C4A57DB914B}" name="GUI">
-        <FILE id="iWDIR6" name="AbstractFeatureUI.h" compile="0" resource="0"
-              file="Source/GUI/AbstractFeatureUI.h"/>
+        <FILE id="iWDIR6" name="FeatureUIBase.h" compile="0" resource="0" file="Source/GUI/FeatureUIBase.h"/>
         <FILE id="znqatL" name="FeatureUIHeaders.h" compile="0" resource="0"
               file="Source/GUI/FeatureUIHeaders.h"/>
         <FILE id="p8eMrj" name="TimeRmsUI.h" compile="0" resource="0" file="Source/GUI/TimeRmsUI.h"/>

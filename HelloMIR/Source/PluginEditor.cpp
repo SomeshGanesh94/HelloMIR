@@ -15,10 +15,12 @@
 HelloMirAudioProcessorEditor::HelloMirAudioProcessorEditor (HelloMirAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
+    m_pFeatureUI = new FeatureUIBase();
+    
     setSize (800, 600);
     
-    addAndMakeVisible(m_TimeRmsUI);
-    m_TimeRmsUI.setSize(120, 250);
+    addAndMakeVisible(m_pFeatureUI);
+    m_pFeatureUI->setSize(120, 250);
     
     /* Labels */
     m_lAppName.setText("Hello MIR", dontSendNotification);
@@ -45,6 +47,7 @@ HelloMirAudioProcessorEditor::HelloMirAudioProcessorEditor (HelloMirAudioProcess
 
 HelloMirAudioProcessorEditor::~HelloMirAudioProcessorEditor()
 {
+    delete m_pFeatureUI;
 }
 
 //==============================================================================
@@ -56,8 +59,8 @@ void HelloMirAudioProcessorEditor::paint (Graphics& g)
 
 void HelloMirAudioProcessorEditor::resized()
 {
-    m_TimeRmsUI.setBounds(350, 250, 120, 250);
-    m_TimeRmsUI.setNumChannels(processor.getTotalNumInputChannels());
+    m_pFeatureUI->setBounds(350, 250, 120, 250);
+    m_pFeatureUI->setNumChannels(processor.getTotalNumInputChannels());
     
     /* Labels */
     m_lAppName.setBounds(350, 20, 100, 50);
@@ -74,7 +77,7 @@ void HelloMirAudioProcessorEditor::timerCallback()
     float** ppfTemp = processor.getCurrentDisplayValue();
     m_lCurrentDisplayValue.setText(String(ppfTemp[0][0]), dontSendNotification);
     
-    m_TimeRmsUI.setValue(ppfTemp);
+    m_pFeatureUI->setValue(ppfTemp);
 }
 
 void HelloMirAudioProcessorEditor::comboBoxChanged(ComboBox *cb)

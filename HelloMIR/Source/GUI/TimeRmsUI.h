@@ -11,12 +11,12 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "AbstractFeatureUI.h"
+#include "FeatureUIBase.h"
 
 //==============================================================================
 /*
 */
-class TimeRmsUI    : public AbstractFeatureUI
+class TimeRmsUI    : public FeatureUIBase
 {
 public:
     TimeRmsUI()
@@ -85,7 +85,7 @@ public:
         this->repaint();
     }
     
-    void setNumChannels (int iNumChannels)
+    void setNumChannels (int iNumChannels) override
     {
         m_iNumChannels = iNumChannels;
     }

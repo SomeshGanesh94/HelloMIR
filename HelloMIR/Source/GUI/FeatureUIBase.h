@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    AbstractFeatureUI.h
+    FeatureUIBase.h
     Created: 4 Jun 2018 7:34:04pm
     Author:  Somesh Ganesh
 
@@ -15,18 +15,18 @@
 //==============================================================================
 /*
 */
-class AbstractFeatureUI    : public Component
+class FeatureUIBase    : public Component
 {
 public:
     
-    AbstractFeatureUI(){}
-    ~AbstractFeatureUI(){}
+    FeatureUIBase(){}
+    ~FeatureUIBase(){}
 
-    void paint (Graphics& g) = 0;
-    void resized() = 0;
-    virtual void setValue (float **ppfInputBuffer) = 0;
-    virtual void setNumChannels (int iChannels) = 0;
+    virtual void paint (Graphics& g){}
+    virtual void resized(){}
+    virtual void setValue (float **ppfInputBuffer){}
+    virtual void setNumChannels (int iChannels){}
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AbstractFeatureUI)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FeatureUIBase)
 };
