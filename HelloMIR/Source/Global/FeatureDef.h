@@ -16,8 +16,8 @@
 enum Feature_t
 {
     kTimeRms,
-    kTimeStd,
     kTimeZcr,
+    kTimeStd,
     kTimePeakEnvelope,
     kTimeAutoCorrelation,
     
@@ -25,7 +25,7 @@ enum Feature_t
 };
 
 const StringArray saFeatures = {"Time domain RMS",
-                                "Time domain STD",
                                 "Time domain ZCR",
+                                "Time domain STD",
                                 "Time domain peak envelope",
                                 "Time domain auto correlation"};
