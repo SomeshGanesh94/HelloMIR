@@ -21,7 +21,6 @@ public:
     Error_t init(float fSampleRateInHz, int iNumChannels, int iBlockLength);
     Error_t reset();
     Error_t process(float **ppfInputBuffer, float **ppfOutputBuffer);
-    bool isInitialized();
     
 private:
     

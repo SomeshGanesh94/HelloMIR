@@ -41,6 +41,11 @@ HelloMirAudioProcessorEditor::HelloMirAudioProcessorEditor (HelloMirAudioProcess
     m_cbFeatureSelect.addListener(this);
     addAndMakeVisible(m_cbFeatureSelect);
     
+    /* Buttons */
+    m_tbRunTests.setButtonText("Run all tests");
+    m_tbRunTests.addListener(this);
+    addAndMakeVisible(m_tbRunTests);
+    
     /* Timer */
     startTimer(100);
 }
@@ -69,6 +74,9 @@ void HelloMirAudioProcessorEditor::resized()
     
     /* Combo box */
     m_cbFeatureSelect.setBounds(300, 200, 200, 25);
+    
+    /* Buttons */
+    m_tbRunTests.setBounds(550, 200, 100, 25);
 }
 
 void HelloMirAudioProcessorEditor::timerCallback()
@@ -87,9 +95,11 @@ void HelloMirAudioProcessorEditor::comboBoxChanged(ComboBox *cb)
     {
         int iItemId = m_cbFeatureSelect.getSelectedId();
         Feature_t feature = static_cast<Feature_t>(iItemId - 1);
-        std::cout << feature << std::endl;
+        
+        /* Change feature in processor */
         processor.setFeature(feature);
         
+        /* Change feature in GUI */
         if (m_pFeatureUI != nullptr)
         {
             delete m_pFeatureUI;
@@ -106,5 +116,15 @@ void HelloMirAudioProcessorEditor::comboBoxChanged(ComboBox *cb)
         }
         addAndMakeVisible(m_pFeatureUI);
         this->resized();
+    }
+}
+
+void HelloMirAudioProcessorEditor::buttonClicked(Button *button)
+{
+    if (button == &m_tbRunTests)
+    {
+        ScopedPointer<UnitTestRunner> myRunner = new UnitTestRunner();
+        myRunner->runAllTests();
+        std::cout << "Tests: " << myRunner->getNumResults() << std::endl;
     }
 }

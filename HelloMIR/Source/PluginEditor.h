@@ -13,11 +13,12 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "GUI/FeatureUIHeaders.h"
+#include "Tests/Test_TimeRms.h"
 
 //==============================================================================
 /**
 */
-class HelloMirAudioProcessorEditor  : public AudioProcessorEditor, public Timer, public ComboBox::Listener
+class HelloMirAudioProcessorEditor  : public AudioProcessorEditor, public Timer, public ComboBox::Listener, public Button::Listener
 {
 public:
     HelloMirAudioProcessorEditor (HelloMirAudioProcessor&);
@@ -29,6 +30,7 @@ public:
     
     void timerCallback() override;
     void comboBoxChanged(ComboBox *cb) override;
+    void buttonClicked(Button* button) override;
 
 private:
     /* This reference is provided as a quick way for your editor to access the processor object that created it */
@@ -40,7 +42,9 @@ private:
     
     ComboBox m_cbFeatureSelect;
     
+    TextButton m_tbRunTests;
+    
     FeatureUIBase *m_pFeatureUI;
-
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessorEditor)
 };

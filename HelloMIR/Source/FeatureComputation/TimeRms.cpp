@@ -41,6 +41,11 @@ Error_t TimeRms::init(float fSampleRateInHz, int iNumChannels, int iBlockLength)
 
 Error_t TimeRms::reset()
 {
+    if (!m_bIsInitialized)
+    {
+        return kNotInitializedError;
+    }
+    
     m_fEpsilon = 0.0;
     
     m_fSampleRateInHz = 0.0;
@@ -85,9 +90,4 @@ Error_t TimeRms::process(float **ppfInputBuffer, float **ppfOutputBuffer)
     }
     
     return kNoError;
-}
-
-bool TimeRms::isInitialized()
-{
-    return m_bIsInitialized;
 }

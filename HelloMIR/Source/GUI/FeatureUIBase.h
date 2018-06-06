@@ -20,7 +20,7 @@ class FeatureUIBase    : public Component
 public:
     
     FeatureUIBase(){}
-    ~FeatureUIBase(){}
+    virtual ~FeatureUIBase(){}
 
     virtual void paint (Graphics& g){}
     virtual void resized(){}
@@ -28,5 +28,6 @@ public:
     virtual void setNumChannels (int iChannels){}
 
 private:
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FeatureUIBase)
 };

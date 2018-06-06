@@ -10,21 +10,30 @@
 
 #pragma once
 #include "../Global/ErrorDef.h"
-#include <math.h>
 #include "../Global/FeatureDef.h"
+#include <math.h>
 
 class AbstractFeature
 {
 public:
     
-    AbstractFeature(){}
-    virtual ~AbstractFeature(){}
+    AbstractFeature()
+    {
+        m_bIsInitialized = false;
+    }
+    virtual ~AbstractFeature()
+    {
+        m_bIsInitialized = false;
+    }
     
     /* Pure virtual functions necessary for each feature */
     virtual Error_t init(float fSampleRateInHz, int iNumChannels, int iBlockLength) = 0;
     virtual Error_t reset() = 0;
     virtual Error_t process(float **ppfInputBuffer, float **ppfOutputBuffer) = 0;
-    virtual bool isInitialized() = 0;
+    virtual bool isInitialized()
+    {
+        return m_bIsInitialized;
+    }
     
     virtual int getNumChannels()
     {
