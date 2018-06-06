@@ -24,11 +24,13 @@ HelloMirAudioProcessor::HelloMirAudioProcessor()
                        )
 #endif
 {
-    pFeature = nullptr;
+    m_pFeature = nullptr;
 }
 
 HelloMirAudioProcessor::~HelloMirAudioProcessor()
 {
+    delete m_pFeature;
+    m_pFeature = nullptr;
 }
 
 //==============================================================================
@@ -169,9 +171,9 @@ void HelloMirAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
 
 //    pCFeatureComputation->computeFeature(FeatureComputation::eFeatureName::kTimeRms, (float**) buffer.getArrayOfReadPointers(), m_ppfCurrentDisplayValue);
 
-    if (pFeature != nullptr)
+    if (m_pFeature != nullptr)
     {
-        pFeature->process((float**) buffer.getArrayOfReadPointers(), m_ppfCurrentDisplayValue);
+        m_pFeature->process((float**) buffer.getArrayOfReadPointers(), m_ppfCurrentDisplayValue);
 
     }
 }
@@ -215,28 +217,28 @@ float** HelloMirAudioProcessor::getCurrentDisplayValue()
 
 Error_t HelloMirAudioProcessor::setFeature(Feature_t featureType)
 {
-    if (pFeature != nullptr)
+    if (m_pFeature != nullptr)
     {
-        pFeature->reset();
-        delete pFeature;
+        m_pFeature->reset();
+        delete m_pFeature;
     }
     
     switch (featureType)
     {
         case kTimeRms:
-            pFeature = new TimeRms();
+            m_pFeature = new TimeRms();
             break;
             
         case kTimeZcr:
-            pFeature = new TimeZcr();
+            m_pFeature = new TimeZcr();
             break;
             
         default:
-            pFeature = new TimeRms();
+            m_pFeature = new TimeRms();
             break;
     }
     
-    pFeature->init(this->getSampleRate(), this->getTotalNumInputChannels(), m_iBlockLength);
+    m_pFeature->init(this->getSampleRate(), this->getTotalNumInputChannels(), m_iBlockLength);
     
     return kNoError;
 }

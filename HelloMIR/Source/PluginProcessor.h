@@ -64,7 +64,7 @@ private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HelloMirAudioProcessor)
     
-    AbstractFeature *pFeature;
+    AbstractFeature *m_pFeature;
     
     float** m_ppfCurrentDisplayValue;
     
