@@ -5,6 +5,9 @@
               pluginFormats="buildVST" pluginManufacturer="SomeshGanesh">
   <MAINGROUP id="RsALwM" name="HelloMIR">
     <GROUP id="{5B4D833D-8226-1BE4-D003-784B344D4AB2}" name="Source">
+      <GROUP id="{8A949339-80A4-9ACB-8D9F-5E0EF4B6856F}" name="Tests">
+        <FILE id="JIT5qp" name="Test_TimeRms.h" compile="0" resource="0" file="Source/Tests/Test_TimeRms.h"/>
+      </GROUP>
       <GROUP id="{5212417B-213C-D7FD-CBBB-9412A97E4856}" name="FeatureComputation">
         <FILE id="BboJtk" name="AbstractFeature.h" compile="0" resource="0"
               file="Source/FeatureComputation/AbstractFeature.h"/>
