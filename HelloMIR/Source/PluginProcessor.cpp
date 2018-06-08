@@ -233,6 +233,10 @@ Error_t HelloMirAudioProcessor::setFeature(Feature_t featureType)
             m_pFeature = new TimeZcr();
             break;
             
+        case kTimeStd:
+            m_pFeature = new TimeStd();
+            break;
+            
         default:
             m_pFeature = new TimeRms();
             break;

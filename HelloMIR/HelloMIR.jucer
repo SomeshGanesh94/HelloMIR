@@ -17,6 +17,8 @@
               file="Source/FeatureComputation/FeatureHeaders.h"/>
         <FILE id="ncJyAU" name="TimeRms.cpp" compile="1" resource="0" file="Source/FeatureComputation/TimeRms.cpp"/>
         <FILE id="fDY6hd" name="TimeRms.h" compile="0" resource="0" file="Source/FeatureComputation/TimeRms.h"/>
+        <FILE id="rgcMIx" name="TimeStd.cpp" compile="1" resource="0" file="Source/FeatureComputation/TimeStd.cpp"/>
+        <FILE id="kiXjKb" name="TimeStd.h" compile="0" resource="0" file="Source/FeatureComputation/TimeStd.h"/>
         <FILE id="bfXZV7" name="TimeZcr.cpp" compile="1" resource="0" file="Source/FeatureComputation/TimeZcr.cpp"/>
         <FILE id="rHOwWH" name="TimeZcr.h" compile="0" resource="0" file="Source/FeatureComputation/TimeZcr.h"/>
       </GROUP>
