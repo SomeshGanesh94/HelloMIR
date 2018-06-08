@@ -12,3 +12,4 @@
 
 #include "TimeRmsUI.h"
 #include "TimeZcrUI.h"
+#include "TimeStdUI.h"
