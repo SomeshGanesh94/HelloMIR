@@ -13,7 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "GUI/FeatureUIHeaders.h"
-#include "Tests/Test_TimeRms.h"
+#include "Tests/TestHeaders.h"
 
 //==============================================================================
 /**

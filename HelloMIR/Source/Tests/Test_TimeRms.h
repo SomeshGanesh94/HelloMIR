@@ -38,7 +38,7 @@ public:
         m_ppfInputBuffer = new float*[2];
         for (int iChannel=0; iChannel<2; iChannel++)
         {
-            m_ppfInputBuffer[iChannel] = new float[2];
+            m_ppfInputBuffer[iChannel] = new float[4];
         }
         m_ppfOutputBuffer = new float*[2];
         for (int iChannel=0; iChannel<2; iChannel++)
