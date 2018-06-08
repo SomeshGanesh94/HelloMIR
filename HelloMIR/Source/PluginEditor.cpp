@@ -119,6 +119,10 @@ void HelloMirAudioProcessorEditor::comboBoxChanged(ComboBox *cb)
                 m_pFeatureUI = new TimeStdUI();
                 break;
                 
+            case kTimePeakEnvelope:
+                m_pFeatureUI = new TimePeakEnvelopeUI();
+                break;
+                
             default:
                 m_pFeatureUI = new FeatureUIBase();
         }

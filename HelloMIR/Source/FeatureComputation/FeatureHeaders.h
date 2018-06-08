@@ -13,3 +13,4 @@
 #include "TimeRms.h"
 #include "TimeZcr.h"
 #include "TimeStd.h"
+#include "TimePeakEnvelope.h"

@@ -237,6 +237,10 @@ Error_t HelloMirAudioProcessor::setFeature(Feature_t featureType)
             m_pFeature = new TimeStd();
             break;
             
+        case kTimePeakEnvelope:
+            m_pFeature = new TimePeakEnvelope();
+            break;
+            
         default:
             m_pFeature = new TimeRms();
             break;
