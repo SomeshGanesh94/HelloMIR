@@ -111,6 +111,10 @@ void HelloMirAudioProcessorEditor::comboBoxChanged(ComboBox *cb)
                 m_pFeatureUI = new TimeRmsUI();
                 break;
                 
+            case kTimeZcr:
+                m_pFeatureUI = new TimeZcrUI();
+                break;
+                
             default:
                 m_pFeatureUI = new FeatureUIBase();
         }

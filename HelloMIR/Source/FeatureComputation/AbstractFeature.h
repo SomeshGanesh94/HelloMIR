@@ -30,6 +30,7 @@ public:
     virtual Error_t init(float fSampleRateInHz, int iNumChannels, int iBlockLength) = 0;
     virtual Error_t reset() = 0;
     virtual Error_t process(float **ppfInputBuffer, float **ppfOutputBuffer) = 0;
+    
     virtual bool isInitialized()
     {
         return m_bIsInitialized;

@@ -11,3 +11,4 @@
 #pragma once
 
 #include "TimeRmsUI.h"
+#include "TimeZcrUI.h"

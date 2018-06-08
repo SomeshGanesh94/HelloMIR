@@ -23,6 +23,14 @@ public:
     {
         m_pfRmsValue = new float[m_iMaxChannels];
         m_iNumChannels = 1;
+        
+        m_lMinRange.setText("-inf dB", dontSendNotification);
+        m_lMinRange.setFont(10);
+        addAndMakeVisible(m_lMinRange);
+        
+        m_lMaxRange.setText("0 dB", dontSendNotification);
+        m_lMaxRange.setFont(10);
+        addAndMakeVisible(m_lMaxRange);
     }
 
     ~TimeRmsUI()
@@ -35,18 +43,17 @@ public:
 
     void paint (Graphics& g) override
     {
-
         g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
 
         g.setColour (Colours::green);
         
-        float fChannelBlockSize = (getWidth() - (m_iNumChannels - 1) * 10) / m_iNumChannels;
+        float fWidth = float(getWidth() - 30);
+        float fChannelBlockSize = (fWidth - (float(m_iNumChannels) - 1) * 10.0) / float(m_iNumChannels);
         float fVolumeBlockSize = getHeight() / 12;
         
         for (int iChannel=0; iChannel<m_iNumChannels; iChannel++)
         {
             float fStart = float(iChannel) * fChannelBlockSize + 10 * float(iChannel);
-            float fEnd = fStart + fChannelBlockSize;
             float fHeight = abs(m_pfRmsValue[iChannel]) * fVolumeBlockSize;
             
             if (m_pfRmsValue[iChannel] >= 0)
@@ -58,7 +65,7 @@ public:
                 g.setColour(Colours::green);
             }
             
-            g.fillRect(fStart, fHeight, fEnd, float(getHeight()));
+            g.fillRect(fStart, fHeight, fChannelBlockSize, float(getHeight()));
         }
         
         
@@ -68,12 +75,12 @@ public:
         g.setFont (14.0f);
         g.drawText ("Time domain Rms", getLocalBounds(),
                     Justification::centred, true);
-        
-        
     }
 
     void resized() override
     {
+        m_lMinRange.setBounds(90, 235, 30, 15);
+        m_lMaxRange.setBounds(90, 0, 30, 15);
     }
 
     void setValue (float **ppfRmsValue) override
@@ -91,8 +98,6 @@ public:
     }
     
 private:
-    
-    const int m_iMaxChannels = 128;
     
     int m_iNumChannels;
     float *m_pfRmsValue;

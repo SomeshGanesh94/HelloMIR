@@ -27,7 +27,11 @@ public:
     virtual void setValue (float **ppfInputBuffer){}
     virtual void setNumChannels (int iChannels){}
 
-private:
+protected:
+    
+    const int m_iMaxChannels = 128;
+    Label m_lMinRange;
+    Label m_lMaxRange;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FeatureUIBase)
 };
