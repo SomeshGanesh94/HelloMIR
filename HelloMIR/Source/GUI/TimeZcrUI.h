@@ -54,7 +54,7 @@ public:
         for (int iChannel=0; iChannel<m_iNumChannels; iChannel++)
         {
             float fStart = float(iChannel) * fChannelBlockSize + 10 * float(iChannel);
-            float fHeight = m_pfZcrValue[iChannel] * fVolumeBlockSize;
+            float fHeight = (1.0 - m_pfZcrValue[iChannel]) * fVolumeBlockSize;
             
             g.setColour(Colours::green);
             g.fillRect(fStart, fHeight, fChannelBlockSize, float(getHeight()));
