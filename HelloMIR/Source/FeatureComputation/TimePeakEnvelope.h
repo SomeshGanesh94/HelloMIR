@@ -35,4 +35,6 @@ private:
     float m_fAlpha[kNumAlphaTypes];
     float m_fFilterBuf;
     float **m_ppfVpTemp;
+    
+    float m_fEpsilon;
 };

@@ -33,6 +33,8 @@ Error_t TimePeakEnvelope::init(float fSampleRateInHz, int iNumChannels, int iBlo
     m_iNumChannels = iNumChannels;
     m_iBlockLength = iBlockLength;
     
+    m_fEpsilon = 1e-5;
+    
     m_fAlpha[kAlphaAttack] = 1 - exp(-2.2 / (m_fSampleRateInHz * 0.01));
     m_fAlpha[kAlphaRelease] = 1 - exp(-2.2 / (m_fSampleRateInHz * 1.5));
     m_fFilterBuf = 0.0;
@@ -52,6 +54,8 @@ Error_t TimePeakEnvelope::reset()
     {
         return kNotInitializedError;
     }
+    
+    m_fEpsilon = 0.0;
     
     m_fAlpha[kAlphaAttack] = 0.0;
     m_fAlpha[kAlphaRelease] = 0.0;
@@ -112,8 +116,21 @@ Error_t TimePeakEnvelope::process(float **ppfInputBuffer, float **ppfOutputBuffe
                 fMaxValue1 = m_ppfVpTemp[iChannel][iSample];
             }
         }
-        ppfOutputBuffer[iChannel][0] = fMaxValue0;
-        ppfOutputBuffer[iChannel][1] = fMaxValue1;
+        /* Convert to dB */
+        if (fMaxValue0 < m_fEpsilon)
+        {
+            fMaxValue0 = m_fEpsilon;
+        }
+        float fMaxValue0InDB = 20.0 * log10(fMaxValue0);
+        
+        if (fMaxValue1 < m_fEpsilon)
+        {
+            fMaxValue1 = m_fEpsilon;
+        }
+        float fMaxValue1InDB = 20.0 * log10(fMaxValue1);
+        
+        ppfOutputBuffer[iChannel][0] = fMaxValue0InDB;
+        ppfOutputBuffer[iChannel][1] = fMaxValue1InDB;
     }
     
     return kNoError;

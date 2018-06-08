@@ -73,7 +73,7 @@ public:
                 m_ppfInputBuffer[iChannel][iSample] = fTempInput[iChannel][iSample];
             }
         }
-        m_pCTimeStd->process(m_ppfOutputBuffer, m_ppfOutputBuffer);
+        m_pCTimeStd->process(m_ppfInputBuffer, m_ppfOutputBuffer);
         
         for (int iChannel=0; iChannel<3; iChannel++)
         {

@@ -130,24 +130,8 @@ public:
     {
         for (int iChannel=0; iChannel<m_iNumChannels; iChannel++)
         {
-            float fDBValue[2] = {static_cast<float>(20.0*log10(ppfPeakValue[iChannel][0])), static_cast<float>(20.0*log10(ppfPeakValue[iChannel][1]))};
-            
-            if (fDBValue[0] > -12.0)
-            {
-                m_ppfPeakValue[iChannel][0] = fDBValue[0];
-            }
-            else
-            {
-                m_ppfPeakValue[iChannel][0] = -12.0;
-            }
-            if (fDBValue[1] > -12.0)
-            {
-                m_ppfPeakValue[iChannel][1] = fDBValue[1];
-            }
-            else
-            {
-                m_ppfPeakValue[iChannel][1] = -12.0;
-            }
+            m_ppfPeakValue[iChannel][0] = ppfPeakValue[iChannel][0];
+            m_ppfPeakValue[iChannel][1] = ppfPeakValue[iChannel][1];
         }
         this->repaint();
     }
