@@ -8,7 +8,7 @@ Current progress of features:
 |:-:|:-:|:-:|:-:|:-:|
 |1|Time domain RMS (root mean square)|<ul><li>- [x] </li>|<ul><li>- [x] </li>|<ul><li>- [x] </li>|
 |2|Time domain ZCR (zero-crossing rate)|<ul><li>- [x] </li>|<ul><li>- [x] </li>|<ul><li>- [x] </li>|
-|3|Time domain std (standard deviation)|<ul><li>- [ ] </li>|<ul><li>- [ ] </li>|<ul><li>- [ ] </li>|
+|3|Time domain std (standard deviation)|<ul><li>- [x] </li>|<ul><li>- [ ] </li>|<ul><li>- [ ] </li>|
 |4|Time domain peak envelopes (1: maximum value, 2: PPM)|<ul><li>- [ ] </li>|<ul><li>- [ ] </li>|<ul><li>- [ ] </li>|
 
 ## Contact
