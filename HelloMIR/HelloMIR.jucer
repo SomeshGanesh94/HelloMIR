@@ -7,6 +7,7 @@
     <GROUP id="{5B4D833D-8226-1BE4-D003-784B344D4AB2}" name="Source">
       <GROUP id="{8A949339-80A4-9ACB-8D9F-5E0EF4B6856F}" name="Tests">
         <FILE id="JIT5qp" name="Test_TimeRms.h" compile="0" resource="0" file="Source/Tests/Test_TimeRms.h"/>
+        <FILE id="HAkdQ9" name="Test_TimeStd.h" compile="0" resource="0" file="Source/Tests/Test_TimeStd.h"/>
         <FILE id="FWA3Lu" name="Test_TimeZcr.h" compile="0" resource="0" file="Source/Tests/Test_TimeZcr.h"/>
         <FILE id="oC8iTh" name="TestHeaders.h" compile="0" resource="0" file="Source/Tests/TestHeaders.h"/>
       </GROUP>
