@@ -14,3 +14,4 @@
 #include "Test_TimeZcr.h"
 #include "Test_TimeStd.h"
 #include "Test_TimePeakEnvelope.h"
+#include "Test_TimeAcfCoeff.h"

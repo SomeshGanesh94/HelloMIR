@@ -14,3 +14,4 @@
 #include "TimeZcr.h"
 #include "TimeStd.h"
 #include "TimePeakEnvelope.h"
+#include "TimeAcfCoeff.h"

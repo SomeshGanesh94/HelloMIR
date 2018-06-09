@@ -19,7 +19,7 @@ enum Feature_t
     kTimeZcr,
     kTimeStd,
     kTimePeakEnvelope,
-    kTimeAutoCorrelation,
+    kTimeAcfCoeff,
     
     kNumFeatures
 };
@@ -28,4 +28,4 @@ const StringArray saFeatures = {"Time domain RMS",
                                 "Time domain ZCR",
                                 "Time domain STD",
                                 "Time domain peak envelope",
-                                "Time domain auto correlation"};
+                                "Time domain acf coefficients"};

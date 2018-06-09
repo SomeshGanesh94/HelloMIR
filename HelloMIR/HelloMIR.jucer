@@ -6,6 +6,8 @@
   <MAINGROUP id="RsALwM" name="HelloMIR">
     <GROUP id="{5B4D833D-8226-1BE4-D003-784B344D4AB2}" name="Source">
       <GROUP id="{8A949339-80A4-9ACB-8D9F-5E0EF4B6856F}" name="Tests">
+        <FILE id="Jg0bps" name="Test_TimeAcfCoeff.h" compile="0" resource="0"
+              file="Source/Tests/Test_TimeAcfCoeff.h"/>
         <FILE id="cOoSDK" name="Test_TimePeakEnvelope.h" compile="0" resource="0"
               file="Source/Tests/Test_TimePeakEnvelope.h"/>
         <FILE id="JIT5qp" name="Test_TimeRms.h" compile="0" resource="0" file="Source/Tests/Test_TimeRms.h"/>
@@ -18,6 +20,9 @@
               file="Source/FeatureComputation/AbstractFeature.h"/>
         <FILE id="tgktJC" name="FeatureHeaders.h" compile="0" resource="0"
               file="Source/FeatureComputation/FeatureHeaders.h"/>
+        <FILE id="KBOzzx" name="TimeAcfCoeff.cpp" compile="1" resource="0"
+              file="Source/FeatureComputation/TimeAcfCoeff.cpp"/>
+        <FILE id="XsAbGn" name="TimeAcfCoeff.h" compile="0" resource="0" file="Source/FeatureComputation/TimeAcfCoeff.h"/>
         <FILE id="QKDyIW" name="TimePeakEnvelope.cpp" compile="1" resource="0"
               file="Source/FeatureComputation/TimePeakEnvelope.cpp"/>
         <FILE id="XFl01A" name="TimePeakEnvelope.h" compile="0" resource="0"
